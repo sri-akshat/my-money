@@ -28,10 +28,15 @@ Run Application.java in IDE
 ## Domain Entities
 
 **Investor** - User who invests
+
 **Portfolio** - An investor has a portfolio
+
 **FundAccount** - A portfolio is composed of multiple fund accounts
+
 **Fund** - Investment instruments e.g. Gold, Equity, Debt Funds. Also holds on to the market change values e.g. Gold fund knows its % change month on month
-**Transaction** - A FundAccount has multiple transactions (BUY / SELL)
+
+**Transaction** - A FundAccount has multiple transactions (BUY / SELL / ADJUSTMENT)
+
 **SIP** - An investor invests into a Fund through a SIP (systemic investment plan)
 
 
