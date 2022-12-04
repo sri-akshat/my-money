@@ -44,7 +44,7 @@ Run Application.java in IDE
 
 #### Scale
 
-Since the getBalance() behaviour calculates the balance everytime from the beginning, caching the balance calculation at a month granularity can help optimize time complexity
+Since the getBalance() behaviour calculates the balance everytime from the beginning, caching the balance calculation at a month granularity can help optimize on compute time. The underlying assumption is that history is immutable (think of it as a bank passbook)
 
 The cache should be cleared on reBalance() or change() invocation to ensure integrity
 
