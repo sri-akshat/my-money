@@ -44,13 +44,20 @@ Run Application.java in IDE
 
 #### Scale
 
-Since the getBalance() behaviour calculates the balance everytime from the beginning, caching the balance calculation at a month granularity can help optimize.
+Since the getBalance() behaviour calculates the balance everytime from the beginning, caching the balance calculation at a month granularity can help optimize time complexity
 
 The cache should be cleared on reBalance() or change() invocation to ensure integrity
 
 #### Race Condition
 
 **Case 1**: getBalance() is invoked along with a reBalance() or change(), can lead to dirty reads
+
 **Case 2** : reBalance() is invoked along with change(), this can lead to incorrect reBalancing
 
 We can avoid the race condition by taking a lock on FundAccount, before reBalancing or change()
+
+#### Architecture
+
+Hexagonal architecture - Idea is to have a clean business layer, separated from Input / Output logic
+
+https://en.wikipedia.org/wiki/Hexagonal_architecture_(software)
