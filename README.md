@@ -98,8 +98,14 @@ The cache should be cleared on reBalance() or change() invocation to ensure inte
 
 We can avoid the race condition by taking a lock on FundAccount, before reBalancing or change()
 
+Alternatively we can maintain version at a Transaction & MarketChange level and use that version to verify if it is the latest version during reBalance persistence
+
 #### Architecture
 
 Hexagonal architecture - Idea is to have a clean business layer, separated from Input / Output logic
 
 https://en.wikipedia.org/wiki/Hexagonal_architecture_(software)
+
+##### Note
+
+Currently PorfolioManager holds on to a portfolio state and the class is light weight. For scaling we can choose to make the class completely stateless by passing the portfolio in all PortfolioManager contracts
