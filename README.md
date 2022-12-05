@@ -90,6 +90,8 @@ Since the getBalance() behaviour calculates the balance everytime from the begin
 
 The cache should be cleared on reBalance() or change() invocation to ensure integrity
 
+I intentionally did not introduce the passbook persistence construct (even though its more optimized) because aspects like updating initial allocation etc become complex.
+
 #### Race Condition
 
 **Case 1**: getBalance() is invoked along with a reBalance() or change(), can lead to dirty reads
