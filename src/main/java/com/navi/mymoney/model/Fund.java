@@ -19,11 +19,11 @@ public class Fund {
         EQUITY, DEBT, GOLD
     }
 
-    public static Fund gold = new Fund(FundType.GOLD);
-    public static Fund equity = new Fund(FundType.EQUITY);
-    public static Fund debt = new Fund(FundType.DEBT);
+    public static final Fund gold = new Fund(FundType.GOLD);
+    public static final Fund equity = new Fund(FundType.EQUITY);
+    public static final Fund debt = new Fund(FundType.DEBT);
 
-    Map<Month, Double> marketChangeMap = new TreeMap<>();
+    final Map<Month, Double> marketChangeMap = new TreeMap<>();
 
     public Map<Month, Double> getMarketChange() {
         return marketChangeMap;

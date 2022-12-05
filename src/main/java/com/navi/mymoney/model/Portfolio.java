@@ -19,14 +19,12 @@ public class Portfolio {
 
     public Map<Fund, Integer> getBalance(Month month) {
         Map<Fund, Integer> fundBalanceMap = new TreeMap<>(Comparator.comparing(Fund::getType));
-        fundAccountList.stream().forEach((fundAccount) -> fundBalanceMap.put( fundAccount.getFund(), fundAccount.getBalance(month)));
+        fundAccountList.forEach((fundAccount) -> fundBalanceMap.put( fundAccount.getFund(), fundAccount.getBalance(month)));
         return fundBalanceMap;
     }
 
     public void applyMarketChange(Map<Fund, Double> marketChangeMap, Month month) {
-        marketChangeMap.forEach((fund, marketChange) -> {
-            fund.getMarketChange().put(month, marketChange);
-        });
+        marketChangeMap.forEach((fund, marketChange) -> fund.getMarketChange().put(month, marketChange));
     }
 
     public void addSIP(Fund fund, Integer amount) {
@@ -40,16 +38,12 @@ public class Portfolio {
 
     public Map<Fund, Integer> reBalance() {
         Map<Fund, Integer> reBalancedMap = new HashMap<>();
-        Integer initialBalance = getInitialInvestmentSplit().values().stream().collect(Collectors.summingInt(Integer::intValue));
+        Integer initialBalance = getInitialInvestmentSplit().values().stream().mapToInt(Integer::intValue).sum();
         Map<Fund, Integer> latestBalance = getLatestBalance();
-        double multiplier =  (double) (latestBalance.values().stream().collect(Collectors.summingInt(Integer::intValue))) / (double)initialBalance;
-        getInitialInvestmentSplit().forEach((fund, amount) -> {
-            reBalancedMap.put(fund, (int) (amount * multiplier));
-        });
+        double multiplier =  (double) ((Integer) latestBalance.values().stream().mapToInt(Integer::intValue).sum()) / (double)initialBalance;
+        getInitialInvestmentSplit().forEach((fund, amount) -> reBalancedMap.put(fund, (int) (amount * multiplier)));
 
-        fundAccountList.stream().forEach(fundAccount -> {
-            fundAccount.adjustBalance(reBalancedMap.get(fundAccount.getFund()) - latestBalance.get(fundAccount.getFund()));
-        });
+        fundAccountList.forEach(fundAccount -> fundAccount.adjustBalance(reBalancedMap.get(fundAccount.getFund()) - latestBalance.get(fundAccount.getFund())));
         return reBalancedMap;
     }
 
@@ -62,6 +56,6 @@ public class Portfolio {
     }
 
     private Map<Fund, Integer> getInitialInvestmentSplit() {
-        return fundAccountList.stream().collect(Collectors.toMap(fundAccount -> fundAccount.getFund(), fundAccount -> fundAccount.getInitialBalance()));
+        return fundAccountList.stream().collect(Collectors.toMap(FundAccount::getFund, FundAccount::getInitialBalance));
     }
 }
