@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class PortfolioManagerImpl implements PortfolioManager{
 
-    private Portfolio portfolio;
+    private final Portfolio portfolio;
 
     public PortfolioManagerImpl(Portfolio portfolio) {
         this.portfolio = portfolio;
